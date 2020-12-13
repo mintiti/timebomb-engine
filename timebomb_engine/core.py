@@ -257,6 +257,9 @@ class PlayerHand(CardSet):
     def collection(self, value):
         self.collection = value
 
+    def append(self, item):
+        self.collection.append(item)
+
     def __getitem__(self, item):
         return self.collection[item]
 
@@ -273,28 +276,43 @@ class PlayerHand(CardSet):
         card.is_hidden = False
         return card.card_type
 
+
 class Player(AbstractPlayer):
 
-    def __init__(self, player_id):
+    def __init__(self, player_id, role):
         self._player_id = player_id
-
+        self._role = Role(role)
+        self._hand = PlayerHand()
+        self._announced = None
 
     @property
     def player_id(self) -> int:
         return self._player_id
 
     @player_id.setter
-    def player_id(self,value):
+    def player_id(self, value):
         self._player_id = value
 
     @property
     def role(self) -> Role:
-        pass
+        return self._role
+
+    @role.setter
+    def role(self, value):
+        self._role = value
 
     @property
     def hand(self) -> "PlayerHand":
-        pass
+        return self.hand
+
+    @hand.setter
+    def hand(self, value):
+        self._hand = value
 
     @property
     def announced(self) -> "CardSet":
-        pass
+        return self._announced
+
+    @announced.setter
+    def announced(self, value):
+        self._announced = value
