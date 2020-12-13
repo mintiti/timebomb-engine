@@ -316,3 +316,6 @@ class Player(AbstractPlayer):
     @announced.setter
     def announced(self, value):
         self._announced = value
+
+    def give_card(self,card):
+        self.hand.append(card)
